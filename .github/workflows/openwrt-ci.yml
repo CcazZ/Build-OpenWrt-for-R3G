@@ -52,8 +52,8 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        mv $CONFIG_FILE openwrt/.config
-        mv $DIY_SH openwrt/diiy.sh
+        cp -f $CONFIG_FILE openwrt/.config
+        cp -f $DIY_SH openwrt/diy.sh
         cd openwrt
         chmod +x diy.sh
         sh diy.sh
