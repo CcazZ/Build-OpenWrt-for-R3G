@@ -101,7 +101,6 @@ jobs:
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
-        zip -
         curl -sL https://git.io/cowtransfer | sh
         zip -r ${FIRMWARE} OpenWrt_R3G.zip
         ./cowtransfer-uploader -s -p 8 OpenWrt_R3G.zip
