@@ -21,7 +21,7 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
-  TNAME:MI_R3G
+  TNAME: MI_R3G
 
 jobs:
   build:
