@@ -9,7 +9,7 @@ on:
     paths:
       - 'r3g.config'
   schedule:
-    - cron: 0 0 * * *
+    - cron: 0 16 * * *
   watch:
     types: started
 
