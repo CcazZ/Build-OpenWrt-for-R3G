@@ -95,11 +95,13 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_firmware
+        name: OpenWrt_R3G
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
+        zip -
         curl -sL https://git.io/cowtransfer | sh
-        ./cowtransfer-uploader -s -p 8 ${FIRMWARE}
+        zip -r ${FIRMWARE} OpenWrt_R3G.zip
+        ./cowtransfer-uploader -s -p 8 OpenWrt_R3G.zip
