@@ -52,11 +52,11 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_SH
+        mv $CONFIG_FILE openwrt/.config
+        mv $DIY_SH openwrt/diiy.sh
         cd openwrt
-        ../$DIY_SH
+        chmod +x diy.sh
+        sh diy.sh
 
     - name: Download package
       run: |
