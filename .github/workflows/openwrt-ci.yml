@@ -96,9 +96,9 @@ jobs:
         rm -f version.buildinfo feeds.buildinfo sha256sums \
         *-squashfs-rootfs0.bin *-squashfs-kernel1.bin \
         *.manifest
-        sha256sum config.buildinfo >> sha256sums.txt
-        sha256sum *-initramfs-kernel.bin >> sha256sums.txt
-        sha256sum *-squashfs-sysupgrade.bin >> sha256sums.txt
+        sha1sum config.buildinfo >> md5.txt
+        sha1sum *-initramfs-kernel.bin >> md5.txt
+        sha1sum *-squashfs-sysupgrade.bin >> md5.txt
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -106,7 +106,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_$TNAME
+        name: OpenWrt_MI-R3G
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
