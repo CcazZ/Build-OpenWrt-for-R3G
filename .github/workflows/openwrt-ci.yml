@@ -93,9 +93,12 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        rm -f version.buildinfo feeds.buildinfo \
+        rm -f version.buildinfo feeds.buildinfo sha256sums \
         *-squashfs-rootfs0.bin *-squashfs-kernel1.bin \
         *.manifest
+        sha256sum config.buildinfo >> sha256sums
+        sha256sum *-initramfs-kernel.bin >> sha256sums
+        sha256sum *-squashfs-sysupgrade.bin >> sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
