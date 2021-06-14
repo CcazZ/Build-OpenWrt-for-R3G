@@ -15,7 +15,7 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL:https://github.com/Lienol/openwrt
+  REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: main
   CONFIG_FILE: r3g.config
   DIY_SH: diy.sh
