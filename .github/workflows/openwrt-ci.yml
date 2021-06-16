@@ -53,10 +53,10 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         #集成DDNSto,项目地址：https://github.com/linkease/nas-packages
-        echo >> feeds.conf.default
-        echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
-        ./scripts/feeds update nas
-        ./scripts/feeds install -a -p nas
+        #echo >> feeds.conf.default
+        #echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
+        #./scripts/feeds update nas
+        #./scripts/feeds install -a -p nas
 
     - name: Load custom configuration
       run: |
