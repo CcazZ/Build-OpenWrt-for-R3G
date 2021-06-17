@@ -94,13 +94,11 @@ jobs:
       id: organize
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cp -f $CONFIG_FILE openwrt/bin/targets/
         cd openwrt/bin/targets/*/*
         rm -rf packages
         rm -f version.buildinfo feeds.buildinfo sha256sums \
         *-squashfs-rootfs0.bin *-squashfs-kernel1.bin \
         *.manifest
-        md5sum $CONFIG_FILE >> md5.txt
         md5sum config.buildinfo >> md5.txt
         md5sum *-initramfs-kernel.bin >> md5.txt
         md5sum *-squashfs-sysupgrade.bin >> md5.txt
