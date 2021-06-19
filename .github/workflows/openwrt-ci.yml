@@ -21,6 +21,7 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
+  SSH_ACTION: true
   TNAME: MI_R3G
 
 jobs:
@@ -70,7 +71,7 @@ jobs:
 
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled == 'yes' }}
+      if: env.SSH_ACTION == 'true'
       with:
         limit-access-to-actor: true
 
