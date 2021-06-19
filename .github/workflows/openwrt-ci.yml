@@ -55,7 +55,7 @@ jobs:
 
     - name: Update and install feeds
       run: |
-        cp -f feeds.conf.default
+        cp -f feeds.conf.default openwrt/
         cd openwrt
         ./scripts/feeds update -a
         ./scripts/feeds install -a
