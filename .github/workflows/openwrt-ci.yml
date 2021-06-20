@@ -20,7 +20,7 @@ env:
   DIY_SH: diy.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
-  SSH_ACTION: true
+  SSH_ACTION: false
   TNAME: MI_R3G
 
 jobs:
@@ -65,7 +65,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        #cp -f $CONFIG_FILE openwrt/.config
+        cp -f $CONFIG_FILE openwrt/.config
         cp -f $DIY_SH openwrt/diy.sh
         cd openwrt
         chmod +x diy.sh
