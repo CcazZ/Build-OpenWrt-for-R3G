@@ -14,7 +14,7 @@ on:
     types: started
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_URL: https://github.com/CcazZ/lede
   REPO_BRANCH: master
   CONFIG_FILE: r3g.config
   DIY_SH: diy.sh
