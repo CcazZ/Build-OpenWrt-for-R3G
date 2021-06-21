@@ -20,7 +20,7 @@ env:
   DIY_SH: diy.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
-  SSH_ACTION: false
+  SSH_ACTION: true
   TNAME: MI_R3G
 
 jobs:
