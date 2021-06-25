@@ -42,6 +42,7 @@ jobs:
     - name: Clone source code
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone https://github.com/siropboy/sirpdboy-package package/sirpdboy-package
         cd openwrt/package/lean/
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-adguardhome
         rm -rf luci-app-jd-dailybonus
