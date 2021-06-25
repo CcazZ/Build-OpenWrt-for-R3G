@@ -42,7 +42,7 @@ jobs:
     - name: Clone source code
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        cd package/lean
+        cd openwrt/package/lean
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-adguardhome
         rm -rf luci-app-jd-dailybonus
         git clone --depth 1 https://github.com/jerrykuku/luci-app-jd-dailybonus
