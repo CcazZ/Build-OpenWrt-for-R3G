@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths:
-      - 'r3g.config'
+      - 'r3g-ap.config'
   schedule:
     - cron: 0 16 * * *
 
