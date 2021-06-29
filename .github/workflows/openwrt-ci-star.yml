@@ -42,7 +42,7 @@ jobs:
     - name: Clone source code
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        git clone https://github.com/siropboy/sirpdboy-package package/sirpdboy-package
+        git clone https://github.com/siropboy/sirpdboy-package openwrt/package/sirpdboy-package
 
     - name: Update and install feeds
       run: |
