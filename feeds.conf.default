@@ -4,8 +4,7 @@ src-git routing https://git.openwrt.org/feed/routing.git
 src-git telephony https://git.openwrt.org/feed/telephony.git
 src-git helloworld https://github.com/fw876/helloworld
 src-git passwall https://github.com/xiaorouji/openwrt-passwall
-#src-git ddnsto https://github.com/linkease/nas-packages
-#src-git opentopd  https://github.com/sirpdboy/sirpdboy-package
+src-git ddnsto https://github.com/linkease/nas-packages
 #src-git video https://github.com/openwrt/video.git
 #src-git targets https://github.com/openwrt/targets.git
 #src-git oldpackages http://git.openwrt.org/packages.git
