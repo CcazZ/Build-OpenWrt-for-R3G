@@ -48,8 +48,13 @@ jobs:
         cd openwrt/package/lean/
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-adguardhome
         git clone --depth 1 https://github.com/vernesong/OpenClash
+<<<<<<< HEAD
         git clone https://github.com/jerrykuku/lua-maxminddb.git
         git clone https://github.com/jerrykuku/luci-app-vssr.git  
+=======
+        git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb
+        git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr
+>>>>>>> 0ab85d781d01447cebd3798a57e125bdbeca9fb0
 
 git clone https://github.com/jerrykuku/luci-app-vssr.git  
     - name: Update and install feeds
