@@ -51,7 +51,6 @@ jobs:
         git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb
         git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr
 
-git clone https://github.com/jerrykuku/luci-app-vssr.git  
     - name: Update and install feeds
       run: |
         cp -f feeds.conf.default openwrt/
