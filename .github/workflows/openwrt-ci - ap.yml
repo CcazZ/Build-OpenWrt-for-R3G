@@ -111,13 +111,13 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_MI-R3G
+        name: OpenWrt-thin_MI-R3G
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         cd ${FIRMWARE}
-        zip -r OpenWrt_$TNAME.zip *
+        zip -r OpenWrt-thin_$TNAME.zip *
         curl -sL https://git.io/cowtransfer | sh
         ./cowtransfer-uploader -s -p 8 OpenWrt_$TNAME.zip
