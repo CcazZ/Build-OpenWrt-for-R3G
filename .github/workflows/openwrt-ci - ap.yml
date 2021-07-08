@@ -120,4 +120,4 @@ jobs:
         cd ${FIRMWARE}
         zip -r OpenWrt-thin_$TNAME.zip *
         curl -sL https://git.io/cowtransfer | sh
-        ./cowtransfer-uploader -s -p 8 OpenWrt_$TNAME.zip
+        ./cowtransfer-uploader -s -p 8 OpenWrt-thin_$TNAME.zip
