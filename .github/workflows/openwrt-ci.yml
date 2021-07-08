@@ -51,6 +51,9 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt/package/lean/
         git clone --depth 1 https://github.com/rufengsuixing/luci-app-adguardhome
+        git clone --depth 1 https://github.com/vernesong/OpenClash
+        git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb
+        git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr
 
     - name: Update and install feeds
       run: |
