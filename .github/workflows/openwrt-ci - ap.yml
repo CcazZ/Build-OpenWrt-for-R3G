@@ -9,7 +9,7 @@ on:
     paths:
       - 'r3g-ap.config'
   schedule:
-    - cron: 0 16 * * 5
+    - cron: 0 16 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
