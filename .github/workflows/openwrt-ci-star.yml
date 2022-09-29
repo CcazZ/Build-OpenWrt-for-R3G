@@ -115,5 +115,6 @@ jobs:
       run: |
         cd ${FIRMWARE}
         zip -r OpenWrt_$TNAME.zip *
-        curl -sL https://git.io/cowtransfer | sh
+        wget https://github.com/Mikubill/cowtransfer-uploader/releases/download/v0.4.23/cowtransfer-uploader_0.4.23_linux_amd64.tar.gz
+        tar -zxf cowtransfer-uploader_0.4.23_linux_amd64.tar.gz
         ./cowtransfer-uploader -s -p 8 OpenWrt_$TNAME.zip
