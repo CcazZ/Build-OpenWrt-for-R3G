@@ -80,7 +80,6 @@ jobs:
         
     - name: Upload .config 
       uses: actions/upload-artifact@master
-      if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: .config
         path: openwrt/config/
