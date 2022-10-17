@@ -80,7 +80,7 @@ jobs:
     - name: Upload .config file
       uses: actions/upload-artifact@master
       with:
-        name: .config
+        name: config
         path: openwrt/config/
 
     - name: Download package
