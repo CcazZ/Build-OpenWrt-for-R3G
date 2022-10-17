@@ -72,13 +72,13 @@ jobs:
       with:
         limit-access-to-actor: true
 
-    - name: Upload .config file
+    - name: Organize config file
       run: |
         cd openwrt
         mkdir config
         cp .config config/
         
-    - name: Upload .config 
+    - name: Upload .config file
       uses: actions/upload-artifact@master
       with:
         name: .config
