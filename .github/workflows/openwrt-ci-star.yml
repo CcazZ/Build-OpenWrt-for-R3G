@@ -10,7 +10,7 @@ env:
   CONFIG_FILE: r3g.config
   DIY_SH: diy.sh
   UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: true
+  UPLOAD_COWTRANSFER: false
   SSH_ACTION: true
   TNAME: MI_R3G
 
@@ -74,14 +74,14 @@ jobs:
 
     - name: Organize config file
       run: |
-        mkdir config
-        cp openwrt/.config config/
+        mkdir -p config
+        cp -f openwrt/.config config/
         
     - name: Upload .config file
       uses: actions/upload-artifact@master
       with:
         name: config
-        path: openwrt/config/
+        path: config
 
     - name: Download package
       run: |
