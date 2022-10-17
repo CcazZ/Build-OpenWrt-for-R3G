@@ -81,7 +81,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: config
-        path: openwrt/config/
+        path: config
 
     - name: Download package
       run: |
