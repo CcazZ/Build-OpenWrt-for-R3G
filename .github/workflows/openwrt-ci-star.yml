@@ -13,6 +13,7 @@ env:
   UPLOAD_COWTRANSFER: false
   SSH_ACTION: true
   TNAME: MI_R3G
+  COMPILE: false
 
 jobs:
   build:
@@ -84,6 +85,7 @@ jobs:
         path: config
 
     - name: Download package
+      if: env.COMPILE == 'true'
       run: |
         cd openwrt
         make defconfig
@@ -93,6 +95,7 @@ jobs:
 
     - name: Compile the firmware
       id: compile
+      if: env.COMPILE == 'true'
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
