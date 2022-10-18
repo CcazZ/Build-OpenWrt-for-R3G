@@ -13,7 +13,10 @@ env:
   UPLOAD_COWTRANSFER: false
   SSH_ACTION: true
   TNAME: MI_R3G
-  COMPILE: false
+  #编译流程开关，设置为true则执行编译流程并上传编译好的固件
+  #设置为false则只上传配置文件
+  COMPILE: false 
+  
 
 jobs:
   build:
