@@ -1,4 +1,4 @@
-name: Build OpenWRT-full For Xiaomi Router 3G
+name: Build OpenWRT-router For Xiaomi Router 3G
 
 on:
   release:
