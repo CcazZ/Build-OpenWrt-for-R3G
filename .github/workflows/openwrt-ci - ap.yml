@@ -1,4 +1,4 @@
-name: Build OpenWRT-thin For Xiaomi Router 3G 
+name: Build OpenWRT-ap For Xiaomi Router 3G 
 
 on:
   release:
