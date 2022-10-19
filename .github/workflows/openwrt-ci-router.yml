@@ -1,4 +1,4 @@
-name: Build OpenWRT-full For Xiaomi Router 3G
+name: Build OpenWRT-router For Xiaomi Router 3G
 
 on:
   release:
@@ -10,6 +10,8 @@ on:
       - 'r3g.config'
   schedule:
     - cron: 0 16 * * *
+  watch:
+    types: started
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -17,7 +19,7 @@ env:
   CONFIG_FILE: r3g.config
   DIY_SH: diy.sh
   UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: true
+  UPLOAD_COWTRANSFER: false
   SSH_ACTION: false
   TNAME: MI_R3G
 

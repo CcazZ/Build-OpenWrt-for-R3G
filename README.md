@@ -1,6 +1,6 @@
 # 构建小米路由器3G的OpenWRT固件
 
-- OpenWRT-full
+- OpenWRT-router
   - 主路由固件
   - 仅包含ACC加速，多拨，WOL。
   - 配置文件：r3g.config
