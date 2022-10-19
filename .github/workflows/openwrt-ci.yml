@@ -45,6 +45,7 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "Asia/Shanghai"
+        export FORCE_UNSAFE_CONFIGURE=1
 
     - name: Clone source code
       run: |
