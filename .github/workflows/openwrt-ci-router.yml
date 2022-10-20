@@ -1,0 +1,89 @@
+name: Build OpenWRT router For Xiaomi Router 3G
+
+on:
+  release:
+    types: published
+  push:
+    branches:
+      - main
+    paths:
+      - 'r3g.config'
+  workflow_dispatch:
+
+env:
+  REPO_URL: https://github.com/Lienol/openwrt
+  REPO_BRANCH: 21.02
+  CONFIG_FILE: r3g.config
+  USE_SH: r3g.sh
+  DIY_SH: diy.sh
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        mv sh/$USE_SH r3g.sh
+        chmod +x r3g.sh
+        sh r3g.sh init
+
+    - name: Prepare resoutces
+      run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        mv -f r3g.sh openwrt/
+        cd openwrt/package
+        sh ../r3g.sh clone
+        cd ..
+        sh r3g.sh feeds
+
+    - name: Load custom configuration
+      run: |
+        cp -f $CONFIG_FILE openwrt/.config
+        cp -f $DIY_SH openwrt/diy.sh
+        cd openwrt
+        chmod +x diy.sh
+        sh diy.sh
+
+    - name: Download package
+      run: |
+        cd openwrt
+        make defconfig
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    - name: Compile the firmware
+      id: compile
+      run: |
+        cd openwrt
+        make -j$(nproc) || make -j1 V=s
+        echo "COMPILE_RESULT=success" >> $GITHUB_OUTPUT
+
+    - name: Organize files
+      id: organize
+      if: steps.compile.outputs.COMPILE_RESULT == 'success'
+      run: |
+        cd openwrt/bin/targets/*/*
+        rm -rf packages
+        rm -f version.buildinfo feeds.buildinfo sha256sums \
+        *-squashfs-rootfs0.bin *-squashfs-kernel1.bin \
+        *.manifest
+        md5sum config.buildinfo >> md5.txt
+        md5sum *-initramfs-kernel.bin >> md5.txt
+        md5sum *-squashfs-sysupgrade.bin >> md5.txt
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "ORGANIZE_RESULT=success" >> $GITHUB_OUTPUT
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@master
+      if: steps.compile.outputs.COMPILE_RESULT == 'success' && steps.organize.outputs.ORGANIZE_RESULT == 'success'
+      with:
+        name: OpenWrt_MI-R3G_Router
+        path: ${{ env.FIRMWARE }}
