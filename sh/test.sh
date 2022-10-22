@@ -9,8 +9,11 @@ case $1 in
 			#git clone --depth 1 https://github.com/vernesong/OpenClash
 			git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb
 			git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr;;
-		git)
-            git;;
+		add)
+		    echo $PWD
+            echo src-git helloworld https://github.com/fw876/helloworld >> feeds.conf.default
+			echo src-git helloworld https://github.com/fw876/helloworld >> feeds.conf.default
+			;;
 		feeds)
 			./scripts/feeds clean
 			./scripts/feeds update -a
