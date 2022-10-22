@@ -17,7 +17,7 @@ git(){
  echo $PWD;
 }
 #定义
-clone(){
+cloneResource(){
 		echo $PWD
         #git clone --depth 1 https://github.com/siropboy/sirpdboy-package
         #git clone --depth 1 https://github.com/kenzok8/openwrt-packages
@@ -37,7 +37,7 @@ case $1 in
         init)
                 init;;
         clone)
-                clone;;
+                cloneResource;;
 		git)
                 git;;
 		feeds)
