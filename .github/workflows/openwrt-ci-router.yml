@@ -41,6 +41,7 @@ jobs:
         cd openwrt/package
         sh ../r3g.sh clone
         cd ..
+        sh r3g.sh addSrc
         sh r3g.sh feeds
 
     - name: Load custom configuration
