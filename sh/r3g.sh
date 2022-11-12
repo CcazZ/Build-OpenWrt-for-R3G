@@ -6,7 +6,7 @@ case $1 in
 			#git clone --depth 1 https://github.com/siropboy/sirpdboy-package
 			#git clone --depth 1 https://github.com/kenzok8/openwrt-packages
 			#git clone --depth 1 https://github.com/liuran001/openwrt-packages
-			#git clone --depth 1 https://github.com/vernesong/OpenClash
+			git clone --depth 1 https://github.com/vernesong/OpenClash
 			git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb
 			git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr;;
 		addSrc)
