@@ -13,7 +13,7 @@ on:
 env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 21.02
-  CONFIG_FILE: r3g-ap.config
+  CONFIG_FILE: r3g.config
   USE_SH: r3g.sh
   DIY_SH: diy.sh
 
