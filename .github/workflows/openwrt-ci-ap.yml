@@ -1,6 +1,8 @@
 name: Build OpenWRT ap For Xiaomi Router 3G
 
 on:
+  watch:
+    types: started
   release:
     types: published
   push:
