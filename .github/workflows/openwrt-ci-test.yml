@@ -92,6 +92,7 @@ jobs:
       id: organize
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
+        cp .config openwrt/bin/targets/*/*/
         cd openwrt/bin/targets/*/*
         rm -rf packages
         rm -f version.buildinfo feeds.buildinfo sha256sums \
