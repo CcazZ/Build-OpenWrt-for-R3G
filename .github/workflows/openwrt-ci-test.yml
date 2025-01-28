@@ -62,7 +62,7 @@ jobs:
     - name: Organize config file
       run: |
         mkdir -p config
-        cp -f openwrt/.config config/
+        cp -f openwrt/.config config/$CONFIG_FILE
         
     - name: Upload .config file
       uses: actions/upload-artifact@master
