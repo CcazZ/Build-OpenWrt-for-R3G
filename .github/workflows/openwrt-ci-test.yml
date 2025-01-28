@@ -7,7 +7,7 @@ on:
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
-  REPO_BRANCH: 24.02
+  REPO_BRANCH: 21.02
   CONFIG_FILE: r3g.config
   USE_SH: test.sh
   DIY_SH: diy.sh
@@ -22,7 +22,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
