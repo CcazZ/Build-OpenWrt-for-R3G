@@ -86,7 +86,7 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
-        echo "{status}={success}" >> $GITHUB_OUTPUT
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Organize files
       id: organize
@@ -102,7 +102,7 @@ jobs:
         md5sum *-initramfs-kernel.bin >> md5.txt
         md5sum *-squashfs-sysupgrade.bin >> md5.txt
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "{status}={success}" >> $GITHUB_OUTPUT
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
