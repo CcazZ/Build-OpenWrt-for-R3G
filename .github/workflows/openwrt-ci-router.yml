@@ -4,6 +4,13 @@ on:
   workflow_dispatch:
   watch:
     types: started
+  release:
+    types: published
+  push:
+    branches:
+      - main
+    paths:
+      - 'r3g.config'
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
