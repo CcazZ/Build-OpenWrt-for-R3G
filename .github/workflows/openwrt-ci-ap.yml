@@ -1,6 +1,7 @@
-name: Build OpenWRT ap For Xiaomi Router 3G
+name: OpenWrt-for-R3G AP热点
 
 on:
+  workflow_dispatch:
   watch:
     types: started
   release:
@@ -10,18 +11,25 @@ on:
       - main
     paths:
       - 'r3g-ap.config'
-  workflow_dispatch:
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 21.02
   CONFIG_FILE: r3g-ap.config
-  USE_SH: r3g.sh
-  DIY_SH: diy.sh
+  USE_SH: test.sh
+  DIY_SH: r3g.sh
+  UPLOAD_FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  SSH_ACTION: false
+  TNAME: MI_R3G_AP
+  #编译流程开关，设置为true则执行编译流程并上传编译好的固件
+  #设置为false则只上传配置文件
+  COMPILE: true 
+  
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -32,14 +40,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         mv sh/$USE_SH r3g.sh
         chmod +x r3g.sh
         sh r3g.sh init
+        mv -f r3g.sh openwrt/
+        mv r3g.config openwrt/.config
 
     - name: Prepare resouces
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        mv -f r3g.sh openwrt/
         cd openwrt/package
         sh ../r3g.sh clone
         cd ..
@@ -48,13 +57,29 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        cp -f $CONFIG_FILE openwrt/.config
-        cp -f $DIY_SH openwrt/diy.sh
         cd openwrt
-        chmod +x diy.sh
-        sh diy.sh
+        # 修改默认IP
+        sed -i 's/192.168.1.1/192.168.22.1/g' package/base-files/files/bin/config_generate
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: env.SSH_ACTION == 'true'
+      with:
+        limit-access-to-actor: true
+
+    - name: Organize config file
+      run: |
+        mkdir -p config
+        cp -f openwrt/.config config/$CONFIG_FILE
+        
+    - name: Upload .config file
+      uses: actions/upload-artifact@master
+      with:
+        name: config
+        path: config
 
     - name: Download package
+      if: env.COMPILE == 'true'
       run: |
         cd openwrt
         make defconfig
@@ -64,23 +89,42 @@ jobs:
 
     - name: Compile the firmware
       id: compile
+      if: env.COMPILE == 'true'
       run: |
         cd openwrt
+        echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
-        echo "COMPILE_RESULT=success" >> $GITHUB_OUTPUT
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.COMPILE_RESULT == 'success'
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
+        cp openwrt/.config openwrt/bin/targets/*/*/
         cd openwrt/bin/targets/*/*
         rm -rf packages
+        rm -f version.buildinfo feeds.buildinfo sha256sums \
+        *.manifest
+        md5sum config.buildinfo >> md5.txt
+        md5sum *-initramfs-kernel.bin >> md5.txt
+        md5sum *-squashfs-sysupgrade.bin >> md5.txt
+        md5sum  *-squashfs-rootfs0.bin >> md5.txt
+        md5sum  *-squashfs-kernel1.bin >> md5.txt
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "ORGANIZE_RESULT=success" >> $GITHUB_OUTPUT
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
-      if: steps.compile.outputs.COMPILE_RESULT == 'success' && steps.organize.outputs.ORGANIZE_RESULT == 'success'
+      if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_MI-R3G_AP
+        name: OpenWrt_MI-R3G-AP
         path: ${{ env.FIRMWARE }}
+
+    - name: Upload firmware to cowtransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      run: |
+        cd ${FIRMWARE}
+        zip -r OpenWrt_$TNAME.zip *
+        wget https://github.com/Mikubill/cowtransfer-uploader/releases/download/v0.4.23/cowtransfer-uploader_0.4.23_linux_amd64.tar.gz
+        tar -zxf cowtransfer-uploader_0.4.23_linux_amd64.tar.gz
+        ./cowtransfer-uploader -s -p 8 OpenWrt_$TNAME.zip
