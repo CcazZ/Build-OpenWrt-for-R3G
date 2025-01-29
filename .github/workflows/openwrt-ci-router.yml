@@ -40,14 +40,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         mv sh/$USE_SH r3g.sh
         chmod +x r3g.sh
         sh r3g.sh init
+        mv -f r3g.sh openwrt/
+        mv r3g.config openwrt/.config
 
     - name: Prepare resouces
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        mv -f r3g.sh openwrt/
         cd openwrt/package
         sh ../r3g.sh clone
         cd ..
