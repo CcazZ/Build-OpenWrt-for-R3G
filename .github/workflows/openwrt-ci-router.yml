@@ -20,7 +20,7 @@ env:
   DIY_SH: diy.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
-  SSH_ACTION: true
+  SSH_ACTION: false
   TNAME: MI_R3G
   #编译流程开关，设置为true则执行编译流程并上传编译好的固件
   #设置为false则只上传配置文件
