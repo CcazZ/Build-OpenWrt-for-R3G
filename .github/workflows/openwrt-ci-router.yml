@@ -1,5 +1,4 @@
-
-name: 测试
+name: OpenWrt-for-R3G 主路由
 
 on:
   workflow_dispatch:
