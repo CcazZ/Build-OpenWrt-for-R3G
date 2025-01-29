@@ -104,11 +104,12 @@ jobs:
         cd openwrt/bin/targets/*/*
         rm -rf packages
         rm -f version.buildinfo feeds.buildinfo sha256sums \
-        *-squashfs-rootfs0.bin *-squashfs-kernel1.bin \
         *.manifest
         md5sum config.buildinfo >> md5.txt
         md5sum *-initramfs-kernel.bin >> md5.txt
         md5sum *-squashfs-sysupgrade.bin >> md5.txt
+        md5sum  *-squashfs-rootfs0.bin >> md5.txt
+        md5sum  *-squashfs-kernel1.bin >> md5.txt
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
